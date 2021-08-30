@@ -21,6 +21,25 @@ if [ ! -f $CACHE_FILE ]; then
 
   echo "-----> Downloading ImageMagick from $IMAGE_MAGICK_URL"
   wget $IMAGE_MAGICK_URL -P $BUILD_DIR | indent
+   git clone https://github.com/ImageMagick/ImageMagick.git ImageMagick 
+    cd ImageMagick 
+    ./configure 
+		--prefix=/usr 
+		--sysconfdir=/etc 
+		--mandir=/usr/share/man 
+		--infodir=/usr/share/info 
+		--enable-static 
+		--disable-openmp 
+		--with-threads 
+		--with-png 
+		--with-webp 
+		--with-modules 
+		--with-pango 
+		--without-hdri 
+		--with-lqr 
+    make 
+    make install
+
 
   echo "-----> Extracting ImageMagick from $BUILD_DIR/$IMAGE_MAGICK_FILE"
   if [ ! -f $BUILD_DIR/$IMAGE_MAGICK_FILE ]; then
